@@ -66,6 +66,9 @@ obj/
 # Ignore configuration files with sensitive data
 appsettings.json
 appsettings.Development.json
+bin/
+bin/Debug/
+bin/Debug/net9.0/appsettings.json
 
 # Ignore logs and temporary files
 logs/
