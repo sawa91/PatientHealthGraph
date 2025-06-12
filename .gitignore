@@ -52,3 +52,21 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+ Ignore build artifacts
+bin/
+obj/
+
+# Ignore IDE settings
+.vs/
+.idea/
+*.suo
+*.user
+
+# Ignore configuration files with sensitive data
+appsettings.json
+appsettings.Development.json
+
+# Ignore logs and temporary files
+logs/
+*.log
