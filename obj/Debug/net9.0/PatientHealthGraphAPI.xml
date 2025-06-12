@@ -1,0 +1,722 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PatientHealthGraphAPI</name>
+    </assembly>
+    <members>
+        <member name="M:HealthcareGraphAPI.Controllers.DoctorsController.GetAllDoctors">
+            <summary>
+            Retrieves all active Doctors.
+            </summary>
+            <returns>A list of active Doctors.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.DoctorsController.GetDoctorById(System.String)">
+            <summary>
+            Retrieves a specific doctor by ID.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.DoctorsController.CreateDoctor(HealthcareGraphAPI.Models.DTOs.CreateDoctorDto)">
+            <summary>
+            Creates a new doctor using CreateDoctorDto.
+            </summary>
+            <returns>The created doctor.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.DoctorsController.UpdateDoctor(System.String,HealthcareGraphAPI.Models.DTOs.UpdateDoctorDto)">
+            <summary>
+            Updates an existing doctor using UpdateDoctorDto.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.DoctorsController.DeleteDoctor(System.String)">
+            <summary>
+            Deletes a doctor by ID. Rather than permanently deleting a doctor by ID, this method flags the record as inactive for auditing and version tracking purposes.
+            </summary>
+            <param name="id">The doctor ID.</param>
+            <returns>No content if successful.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.DoctorsController.GetPatientsByDoctor(System.String)">
+            <summary>
+            Retrieves all patients treated by a specific doctor.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.DoctorsController.GetTreatmentsByDoctor(System.String)">
+            <summary>
+            Retrieves all treatments specialized by a doctor.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.DoctorsController.AssignTreatmentToDoctor(System.String,System.String)">
+            <summary>
+            Assigns an abstract treatment to a doctor by creating the appropriate relationship.
+            </summary>
+            <param name="doctorId">The doctor ID.</param>
+            <param name="treatmentId">The treatment ID.</param>
+            <returns>An HTTP 200 response if successful.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.FacilitiesController.GetAllFacilities">
+            <summary>
+            Retrieves all active facilities.
+            </summary>
+            <returns>A list of active facilities.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.FacilitiesController.GetFacilityById(System.String)">
+            <summary>
+            Retrieves a specific facility by ID.
+            </summary>
+            <param name="facilityId">The ID of the facility.</param>
+            <returns>The facility with the specified ID.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.FacilitiesController.CreateFacility(HealthcareGraphAPI.Models.DTOs.CreateFacilityDto)">
+            <summary>
+            Creates a new facility.
+            </summary>
+            <param name="facilityDto">The facility creation data.</param>
+            <returns>The created facility record.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.FacilitiesController.UpdateFacility(System.String,HealthcareGraphAPI.Models.DTOs.UpdateFacilityDto)">
+            <summary>
+            Updates an existing facility.
+            </summary>
+            <param name="facilityId">The ID of the facility to update.</param>
+            <param name="updateDto">The facility update data.</param>
+            <returns>No content if successful.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.FacilitiesController.DeleteFacility(System.String)">
+            <summary>
+            Deletes a facility by flagging it as inactive.
+            </summary>
+            <param name="id">The facility ID.</param>
+            <returns>No content if successful.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.FacilitiesController.GetDoctorsByFacility(System.String)">
+            <summary>
+            Retrieves all doctors working at a given facility.
+            </summary>
+            <param name="facilityId">The facility ID.</param>
+            <returns>A list of doctors at the facility.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.FacilitiesController.GetTreatmentsByFacility(System.String)">
+            <summary>
+            Retrieves all treatments available within a facility.
+            </summary>
+            <param name="facilityId">The facility ID.</param>
+            <returns>A list of treatments available at the facility.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.FacilitiesController.AssignTreatmentToFacility(System.String,System.String)">
+            <summary>
+            Assigns an abstract treatment to a facility by creating the appropriate relationship.
+            </summary>
+            <param name="facilityId">The facility ID.</param>
+            <param name="treatmentId">The treatment ID.</param>
+            <returns>An HTTP 200 response if successful.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.FacilitiesController.AssignDoctorToFacility(System.String,System.String)">
+            <summary>
+            Assigns a doctor to a facility by creating the appropriate relationship.
+            </summary>
+            <param name="facilityId">The facility ID.</param>
+            <param name="doctorId">The doctor ID.</param>
+            <returns>An HTTP 200 response if successful.</returns>
+        </member>
+        <member name="T:HealthcareGraphAPI.Controllers.PatientsController">
+            <summary>
+            API controller for managing Patient entities.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.PatientsController.GetAllPatients">
+            <summary>
+            Retrieves all active patients.
+            </summary>
+            <returns>A list of active patients.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.PatientsController.GetPatientById(System.String)">
+            <summary>
+            Retrieves a patient by ID.
+            </summary>
+            <param name="id">The patient ID.</param>
+            <returns>The patient with the specified ID.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.PatientsController.CreatePatient(HealthcareGraphAPI.Models.DTOs.CreatePatientDto)">
+            <summary>
+            Creates a new patient.
+            </summary>
+            <param name="patient">The patient object to create.</param>
+            <returns>The created patient object and location header.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.PatientsController.UpdatePatient(System.String,HealthcareGraphAPI.Models.DTOs.UpdatePatientDto)">
+            <summary>
+            Updates an existing patient with only provided fields.
+            </summary>
+            <param name="id">The patient ID.</param>
+            <param name="updateDto">The DTO with update data (optional fields).</param>
+            <returns>No content if successful.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.PatientsController.DeletePatient(System.String)">
+            <summary>
+            Deletes a patient by ID by flaffing it as Inactive. Choice of no deletion for tracking purposes.
+            </summary>
+            <param name="id">The patient ID.</param>
+            <returns>No content if successful.</returns>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.PatientsController.GetPatientNetworkGraph(System.String)">
+            <summary>
+            Retrieves the network graph of relationships for a specific patient, limited to a depth of two.
+            </summary>
+            <remarks>
+            The depth is limited to two for the following reasons:
+            - Performance: Deeper queries are more resource-intensive and can slow down response times.
+            - Relevancy: Most directly relevant relationships (e.g., immediate physicians or linked facilities) are found within one degree. In the current model, only followUpAction (Medicine, LabTest, Radiology) are found at a two degree from the patient.
+            - Readability: A shallower graph is easier to visualize and interpret.
+            - Security: Limiting depth minimizes exposure of sensitive or extraneous data.
+            </remarks>
+        </member>
+        <member name="M:HealthcareGraphAPI.Controllers.PatientsController.AssignPatientToDoctor(System.String,System.String)">
+            <summary>
+            Assigns a patient to a doctor by creating a relationship between them.
+            </summary>
+            <param name="patientId">The unique identifier of the patient.</param>
+            <param name="doctorId">The unique identifier of the doctor.</param>
+            <returns>An HTTP 200 response when the assignment is successful.</returns>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.BaseEntity">
+            <summary>
+            Base class for entities providing common historisation attributes.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.BaseEntity.Id">
+            <summary>
+            Unique identifier for the entity.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.BaseEntity.CreatedAt">
+            <summary>
+            Date and time when the entity was created.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.BaseEntity.UpdatedAt">
+            <summary>
+            Date and time when the entity was last updated.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.BaseEntity.Active">
+            <summary>
+            Status of the entity. Inactive entities are maintained for record-keeping purposes, such as former patients or retired doctors.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.ContactInfo.Type">
+            <summary>
+            The type of contact information (e.g., Email, Phone).
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.ContactInfo.Value">
+            <summary>
+            The contact value (e.g., an email address or phone number).
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.Doctor">
+            <summary>
+            Represents a Doctor entity.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Doctor.FirstName">
+            <summary>
+            Doctor's first name.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Doctor.LastName">
+            <summary>
+            Doctor's last name.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Doctor.StartYear">
+            <summary>
+            Doctor's start date of work
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Doctor.Gender">
+            <summary>
+            Doctor's gender.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Doctor.LicenseNumber">
+            <summary>
+            Doctor's health card number.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Doctor.Specialization">
+            <summary>
+            Doctor's Specialization. To simplify it is considered a single field.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.DTOs.CreateDoctorDto">
+            <summary>
+            Represents the data required to create a new doctor.
+            Note: Excludes properties that are auto-generated (Id, CreatedAt, UpdatedAt).
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.DTOs.CreateFacilityDto">
+            <summary>
+            Represents the data required to create a new doctor.
+            Note: Excludes properties that are auto-generated (Id, CreatedAt, UpdatedAt).
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.DTOs.CreatePatientDto">
+            <summary>
+            Represents the data required to create a new patient.
+            Note: Excludes properties that are auto-generated (Id, CreatedAt, UpdatedAt).
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.DTOs.RelativeDto">
+            <summary>
+            DTO to represent a patient's relative.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.DTOs.UpdateDoctorDto">
+            <summary>
+            Represents the data for updating an existing doctor.
+            Fields are optional so that only provided values are updated.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.DTOs.UpdateFacilityDto">
+            <summary>
+            Represents the data required to create a new doctor.
+            Note: Excludes properties that are auto-generated (Id, CreatedAt, UpdatedAt).
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.DTOs.UpdatePatientDto">
+            <summary>
+            Represents the data for updating an existing patient.
+            Fields are optional so that only provided values are updated.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.Gender">
+            <summary>
+            Enumeration for patient's gender.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.IEntity">
+            <summary>
+            Defines a domain entity with an Id property.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.IEntity.Id">
+            <summary>
+            Unique identifier for the entity.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.IEntity.CreatedAt">
+            <summary>
+            Date and time when the entity was created.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.IEntity.UpdatedAt">
+            <summary>
+            Date and time when the entity was last updated.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.IEntity.Active">
+            <summary>
+            Status of the entity. Inactive entities are maintained for record-keeping purposes, such as former patients or retired doctors.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Models.Patient">
+            <summary>
+            Represents a patient entity.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Patient.FirstName">
+            <summary>
+            Patient's first name.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Patient.LastName">
+            <summary>
+            Patient's last name.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Patient.DateOfBirth">
+            <summary>
+            Patient's date of birth
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Patient.Gender">
+            <summary>
+            Patient's gender.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Models.Patient.HealthCardNumber">
+            <summary>
+            Patient's health card number.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Repositories.BaseRepository`1">
+            <summary>
+            Base repository for managing common Neo4j CRUD operations for entities implementing IDomainEntity.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Repositories.BaseRepository`1.NodeLabel">
+            <summary>
+            The label used in Neo4j for the entity (e.g., "Patient").
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Repositories.BaseRepository`1.Map(Neo4j.Driver.INode)">
+            <summary>
+            Maps a Neo4j INode to a domain entity instance.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Repositories.BaseRepository`1.CreateParameters(`0)">
+            <summary>
+            Creates a dictionary of parameters from the given entity.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Repositories.DoctorRepository">
+            <summary>
+            Concrete repository implementation for Dcotor-specific operations.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Repositories.DoctorRepository.NodeLabel">
+            <summary>
+            Node label used in Neo4j for Doctor nodes.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Repositories.DoctorRepository.Map(Neo4j.Driver.INode)">
+            <summary>
+            Maps a Neo4j INode to a Doctor object.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Repositories.DoctorRepository.CreateParameters(HealthcareGraphAPI.Models.Doctor)">
+            <summary>
+            Creates a dictionary of properties for a Patient.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Repositories.FacilityRepository.NodeLabel">
+            <summary>
+            Node label used in Neo4j for Facility nodes.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Repositories.FacilityRepository.Map(Neo4j.Driver.INode)">
+            <summary>
+            Maps a Neo4j INode to a Facility object.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Repositories.FacilityRepository.CreateParameters(Facility)">
+            <summary>
+            Creates a dictionary of properties for a Facility.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Repositories.IRepository`1">
+            <summary>
+            Generic repository interface providing basic CRUD operations.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Repositories.PatientRepository">
+            <summary>
+            Concrete repository implementation for Patient-specific operations.
+            </summary>
+        </member>
+        <member name="P:HealthcareGraphAPI.Repositories.PatientRepository.NodeLabel">
+            <summary>
+            Node label used in Neo4j for Patient nodes.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Repositories.PatientRepository.Map(Neo4j.Driver.INode)">
+            <summary>
+            Maps a Neo4j INode to a Patient object.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Repositories.PatientRepository.CreateParameters(HealthcareGraphAPI.Models.Patient)">
+            <summary>
+            Creates a dictionary of properties for a Patient.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Services.DoctorService">
+            <summary>
+            Implements doctor operations by using the repository for CRUD and the Neo4j driver for custom queries.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.DoctorService.GetDoctorByIdAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.DoctorService.CreateDoctorAsync(HealthcareGraphAPI.Models.Doctor)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.DoctorService.UpdateDoctorAsync(HealthcareGraphAPI.Models.Doctor)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.DoctorService.DeleteDoctorAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.DoctorService.AssignTreatmentToFacilityAsync(System.String,System.String)">
+            <summary>
+            Assigns a Treatment to a doctor after validating that both exist.
+            </summary>
+            <param name="treatmentId">ID of the treatment</param>
+            <param name="doctorId">ID of the doctor</param>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.DoctorService.AssignTreatmentToDoctorAsync(System.String,System.String)">
+            <summary>
+            Assigns a Treatment to a doctor after validating that both exist.
+            </summary>
+            <param name="treatmentId">ID of the treatment</param>
+            <param name="doctorId">ID of the facility</param>
+        </member>
+        <member name="T:HealthcareGraphAPI.Services.FacilityService">
+            <summary>
+            Implements facility operations by using the repository for CRUD and the Neo4j driver for custom queries.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.FacilityService.GetFacilityByIdAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.FacilityService.CreateFacilityAsync(Facility)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.FacilityService.UpdateFacilityAsync(Facility)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.FacilityService.DeleteFacilityAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.FacilityService.AssignDoctorToFacilityAsync(System.String,System.String)">
+            <summary>
+            Assigns a doctor to a facility after validating that both exist.
+            </summary>
+            <param name="doctorId">ID of the doctor</param>
+            <param name="facilityId">ID of the facility</param>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.FacilityService.AssignTreatmentToFacilityAsync(System.String,System.String)">
+            <summary>
+            Assigns a Treatment to a facility after validating that both exist.
+            </summary>
+            <param name="treatmentId">ID of the treatment</param>
+            <param name="facilityId">ID of the facility</param>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IHealthInsightsService.GenerateInsightsAsync(System.String,HealthcareGraphAPI.Models.Treatment,CreateTreatmentDTO)">
+            <summary>
+            Génère un résumé de l'état de santé et une recommandation de traitement en se basant sur les informations du patient et du traitement.
+            </summary>
+            <param name="patientId">L'identifiant du patient.</param>
+            <param name="treatment">L'objet Treatment en cours de création.</param>
+            <param name="dto">Les informations complémentaires issues du DTO de création.</param>
+            <returns>Un tuple contenant le résumé et la recommandation.</returns>
+        </member>
+        <member name="T:HealthcareGraphAPI.Services.IDoctorService">
+            <summary>
+            Service interface exposing doctor operations including CRUD and custom queries.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IDoctorService.GetAllDoctorssAsync">
+            <summary>
+            Retrieves all doctors.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IDoctorService.GetDoctorByIdAsync(System.String)">
+            <summary>
+            Retrieves a doctors by their ID.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IDoctorService.CreateDoctorAsync(HealthcareGraphAPI.Models.Doctor)">
+            <summary>
+            Creates a new doctor.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IDoctorService.UpdateDoctorAsync(HealthcareGraphAPI.Models.Doctor)">
+            <summary>
+            Updates an existing doctor.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IDoctorService.DeleteDoctorAsync(System.String)">
+            <summary>
+            Deletes a doctor by their ID.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Services.IFacilityService">
+            <summary>
+            Service interface exposing facility operations including CRUD and custom queries.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IFacilityService.GetAllFacilitiesAsync">
+            <summary>
+            Retrieves all facility.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IFacilityService.GetFacilityByIdAsync(System.String)">
+            <summary>
+            Retrieves a facility by their ID.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IFacilityService.CreateFacilityAsync(Facility)">
+            <summary>
+            Creates a new facility.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IFacilityService.UpdateFacilityAsync(Facility)">
+            <summary>
+            Updates an existing facility.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IFacilityService.DeleteFacilityAsync(System.String)">
+            <summary>
+            Deletes a facility by their ID.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Services.IPatientService">
+            <summary>
+            Service interface exposing patient operations including CRUD and custom queries.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IPatientService.GetAllPatientsAsync">
+            <summary>
+            Retrieves all patients.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IPatientService.GetPatientByIdAsync(System.String)">
+            <summary>
+            Retrieves a patient by their ID.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IPatientService.CreatePatientAsync(HealthcareGraphAPI.Models.Patient)">
+            <summary>
+            Creates a new patient.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IPatientService.UpdatePatientAsync(HealthcareGraphAPI.Models.Patient)">
+            <summary>
+            Updates an existing patient.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IPatientService.DeletePatientAsync(System.String)">
+            <summary>
+            Deletes a patient by their ID.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IPatientService.GetPatientsByDoctorAsync(System.String)">
+            <summary>
+            Retrieves all patients treated by a specific doctor.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.IPatientService.GetPatientNetworkGraphAsync(System.String)">
+            <summary>
+            Retrieves the network of relationships for a given patient.
+            </summary>
+        </member>
+        <member name="T:HealthcareGraphAPI.Services.PatientService">
+            <summary>
+            Implements patient operations by using the repository for CRUD and the Neo4j driver for custom queries.
+            </summary>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.PatientService.GetAllPatientsAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.PatientService.GetPatientByIdAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.PatientService.CreatePatientAsync(HealthcareGraphAPI.Models.Patient)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.PatientService.UpdatePatientAsync(HealthcareGraphAPI.Models.Patient)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.PatientService.DeletePatientAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.PatientService.GetPatientsByDoctorAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.PatientService.GetPatientNetworkGraphAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HealthcareGraphAPI.Services.PatientService.AssignPatienttToDoctorAsync``2(System.String,System.String)">
+            <summary>
+            Assigns a patient to a doctor .
+            </summary>
+            <param name="patientId">ID of the patient</param>
+            <param name="doctorId">ID of the doctor</param>
+            
+        </member>
+        <member name="M:TreatmentsController.GetTreatment(System.String)">
+            <summary>
+            Retrieves a patient treatment by its unique identifier.
+            </summary>
+            <param name="treatmentId">The unique identifier of the patient treatment.</param>
+            <returns>The treatment with the specified id.</returns>
+        </member>
+        <member name="M:TreatmentsController.GetAbstractTreatment(System.String)">
+            <summary>
+            Retrieves an abstract treatment by its unique identifier.
+            </summary>
+            <param name="treatmentAbstractId">The unique identifier of the abstract treatment.</param>
+            <returns>The treatment with the specified id.</returns>
+        </member>
+        <member name="M:TreatmentsController.GetTreatmentsForPatient(System.String)">
+            <summary>
+            Retrieves all treatments for a given patient.
+            </summary>
+            <param name="patientId">The unique identifier of the patient.</param>
+            <returns>A list of treatments for the specified patient.</returns>
+        </member>
+        <member name="M:TreatmentsController.CreateAbstractTreatment(CreateAbstractTreatmentDTO)">
+            <summary>
+            Creates a new Treatment that may be available at a Facility or a doctor got specialized on it.
+            </summary>
+            <param name="treatment">The patient object to create.</param>
+            <returns>The created patient object and location header.</returns>
+        </member>
+        <member name="M:TreatmentsController.CreateTreatment(CreateTreatmentDTO)">
+            <summary>
+            Creates a patient Snapshot record.
+            </summary>
+            <remarks>
+            both PatientId and DoctorId need to be known form context (authentification, route).
+            Here to simplify, we fill them as for the other fields of the patient treatment record 
+            Fields HealthStateSummary and Health Recommendatio are generated using an LLM
+            FollowUpAction meant to be an object/Node with fields: "followUpActions": 
+            {Category, name, value, remarks} for example {LabTest, Test of Vitamin D, result: Low, repeat test in 3 months} but to simplify here it is considered a string
+            </remarks>
+            <param name="dto">The treatment creation data transfer object.</param>
+            <returns>The newly created treatment record.</returns>
+        </member>
+        <member name="M:TreatmentsController.GetLatestHealthState(System.String)">
+            <summary>
+            Retrieves the latest health state (snapshot) of a patient.
+            </summary>
+            <param name="patientId">The unique identifier of the patient.</param>
+            <returns>The most recent health snapshot of the patient.</returns>
+        </member>
+        <member name="M:TreatmentsController.GetHealthStateTimeline(System.String)">
+            <summary>
+            Retrieves the full timeline of health snapshots for a given patient.
+            </summary>
+            <param name="patientId">The unique identifier of the patient.</param>
+            <returns>A chronological list of health snapshots.</returns>
+        </member>
+        <member name="P:Facility.Name">
+            <summary>
+            The name of the facility.
+            </summary>
+        </member>
+        <member name="P:Facility.Type">
+            <summary>
+            The type of the facility (e.g., Hospital, Clinic).
+            </summary>
+        </member>
+        <member name="P:Facility.Capacity">
+            <summary>
+            The overall capacity of the facility.
+            </summary>
+        </member>
+        <member name="P:Facility.ServicesOffered">
+            <summary>
+            A list of services offered by the facility.
+            </summary>
+        </member>
+        <member name="P:Facility.Contacts">
+            <summary>
+            A list of contact details associated with the facility.
+            </summary>
+        </member>
+        <member name="M:NodeMapper.MapPatient(Neo4j.Driver.INode)">
+            <summary>
+            Helper method to map a Neo4j INode to a Patient.
+            </summary>
+        </member>
+    </members>
+</doc>
